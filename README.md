@@ -44,6 +44,10 @@ Because, after all, we need to restore the obfuscated code to what it was initia
 High-Entropy (left side) vs Low-Entropy (right side) default CS Shellcode integrated with Syscalls (Syswhispers2):  
 ![results-side-by-side](https://raw.githubusercontent.com/kleiton0x00/Shelltropy/main/Images/Results_together.jpg?token=GHSAT0AAAAAABP2SATRVI6BDXMH5YOQ2QU6YUUAEXQ)
 
+## Disadvantage
+
+While encoding, the size of the shellcode will be 2 times larger, making it easier for Blue Team/ Malware Analysis to detect such encoded shellcodes.
+
 ## Summary
 It is straightforward to reduce the entropy of obfuscated malware code; it may be used to elude detection and, on top of that, it may provide some extra protection against signature formation. The code described here can be modified to build solutions that assist avoid the use of entropy as a malware detection method.
 Using alternative mathematical equations and different sized low entropy chunks of code to create better low entropy byte patterns may improve the method's reliability. 
