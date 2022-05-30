@@ -1,5 +1,5 @@
 # Shelltropy
-A new (hopefully) technique of hiding malicious shellcode via Shannon encoding.
+A new technique of hiding malicious shellcode based on low-entropy via Shannon encoding.
 
 Entropy is the measure of the randomness in a set of data (here: shellcode). The higher the entropy, the more random the data is. Shannon Entropy is an algorithm that will produce a result between 0 and 8, where 8 means there is no pattern in the data, thereby it's very random and 0 means data follows a pattern.
 
