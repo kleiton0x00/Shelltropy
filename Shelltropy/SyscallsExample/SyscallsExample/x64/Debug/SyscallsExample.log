@@ -1,0 +1,4 @@
+﻿  SyscallsExample.cpp
+C:\Users\rto\Desktop\SyscallsExample1-main\SyscallsExample\SyscallsExample\SyscallsExample.cpp(82,41): warning C4312: 'type cast': conversion from 'int' to 'HANDLE' of greater size
+C:\Users\rto\Desktop\SyscallsExample1-main\SyscallsExample\SyscallsExample\SyscallsExample.cpp(105,12): warning C4101: 'bytesWritten': unreferenced local variable
+  SyscallsExample.vcxproj -> C:\Users\rto\Desktop\SyscallsExample1-main\SyscallsExample\x64\Debug\SyscallsExample.exe
