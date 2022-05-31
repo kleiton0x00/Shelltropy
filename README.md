@@ -12,13 +12,30 @@ Entropy is the measure of the randomness in a set of data (here: shellcode). The
 
 Check out my article for more information of my research: https://kleiton0x00.github.io/posts/The-more-predictable-you-are-the-less-you-are-able-to-get-detected/
 
-## How the PoC works
+## Setup
+Clone this repository:  
+```git clone https://github.com/kleiton0x00/Shelltropy.git```
 
-![poc_logic_flow](https://github.com/kleiton0x00/Shelltropy/blob/main/Images/encoding_logic_flow.jpg?raw=true)
+**For the encoder:**  
+Create a new Visual Studio project and import both **Entropy.h** and **shannonEncode.cpp** and simply build it.
+
+**For the Shellcode Injection PoC:**  
+Open the Visual Studio project file located in ```/Shelltropy/SyscallsExample/SyscallsExample/SyscallsExample.vcxproj``` and simply build it.
+
+**For the decoder (optional since it's included on the Shellcode Injection PoC):**  
+Create a new Visual Studio project and import **shannonDecode.cpp** and simply build it.
+
+## How the PoC works
 
 The concept is to divide the array into chunks and insert a low-entropy pattern of bytes between each chunk. When the sample is run, we must reconstruct the original payload in memory, bypassing the static detection of the high entropy code at this stage.
 It's also worth noting that the low-entropy code to be inserted can follow a variety of patterns, and the amount of insertions can vary, thus it can be used to circumvent static signature detection. The second step is to combine the high entropy chunks of bytes with the low entropy chunks. 
 Because, after all, we need to restore the obfuscated code to what it was initially in order to proceed to the de-obfuscation step, the third task will restore the original array of bytes by deleting the low entropy patterns. 
+
+![poc_logic_flow](https://github.com/kleiton0x00/Shelltropy/blob/main/Images/encoding_logic_flow.jpg?raw=true)
+
+## Demo
+
+![vs_build](https://i.imgur.com/3B7p4hB.gif)
 
 ## Entropy Results
 
