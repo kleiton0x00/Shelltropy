@@ -40,3 +40,7 @@ High-Entropy (left side) vs Low-Entropy (right side) default CS Shellcode integr
 ## Disadvantage
 
 While encoding, the size of the shellcode will be 2 times larger, making it easier for Blue Team/ Malware Analysis to detect such encoded shellcodes.
+
+## Creds
+
+The Shellcode Injection template (using Syscalls2) is copied from this project: https://github.com/m0rv4i/SyscallsExample
