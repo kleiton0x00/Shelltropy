@@ -11,42 +11,39 @@ constexpr int chunk_size = cs_shellcode_length / number_of_chunks;
 constexpr int remaining_bytes = cs_shellcode_length % number_of_chunks;
 constexpr int payload_size_after_entropy_reduction = cs_shellcode_length * 2;
 
-unsigned char* decodeShonnan(unsigned char* lowEntropyShellcode)
+PBYTE shannonDecode(PBYTE high_ent_payload)
+
 {
-
     constexpr int payload_size = (payload_size_after_entropy_reduction + 1) / 2;
-    unsigned char* ptr1;
-    ptr1 = (unsigned char*)malloc(cs_shellcode_length);
-
-    unsigned char lowEntropyPayload[payload_size_after_entropy_reduction] = { 0 };
-    memcpy_s(lowEntropyPayload, sizeof lowEntropyPayload, lowEntropyShellcode, payload_size_after_entropy_reduction);
-    //unsigned char restored_payload[payload_size] = { 0 };
+    BYTE lowEntropyPayload[payload_size_after_entropy_reduction] = { 0 };
+    memcpy_s(lowEntropyPayload, sizeof lowEntropyPayload, high_ent_payload, payload_size_after_entropy_reduction);
+    static BYTE restored_payload[payload_size] = { 0 };
     int encodedShellcodeOffset = 0;
     int shellcodeOffset = 0;
+
     for (size_t i = 0; i < number_of_chunks; i++)
     {
         for (size_t j = 0; j < chunk_size; j++)
         {
-            //restored_payload[offset_of_original_payload] = low_entropy_payload_holder[offset_of_hi_entropy_payload];
-            ptr1[shellcodeOffset] = lowEntropyPayload[encodedShellcodeOffset];
-
+            restored_payload[shellcodeOffset] = lowEntropyPayload[encodedShellcodeOffset];
             encodedShellcodeOffset++;
             shellcodeOffset++;
         }
+
         for (size_t k = 0; k < chunk_size; k++)
         {
             encodedShellcodeOffset++;
         }
     }
+
     if (remaining_bytes)
     {
         for (size_t i = 0; i < sizeof remaining_bytes; i++)
         {
-            //restored_payload[offset_of_original_payload++] = high_ent_payload[offset_of_hi_entropy_payload++];
-            ptr1[shellcodeOffset++] = lowEntropyShellcode[encodedShellcodeOffset++];
+            restored_payload[shellcodeOffset++] = high_ent_payload[encodedShellcodeOffset++];
         }
     }
-    return ptr1;
+    return restored_payload;
 }
 
 int main() {
@@ -57,11 +54,9 @@ int main() {
 
     printf("\n\n\nShannon Fano Decoded shellcode:\n\n");
 
-    unsigned char* ptr2;
-    ptr2 = (unsigned char*)malloc(cs_shellcode_length);
-    ptr2 = decodeShonnan(payload);
+    const auto shellcode = shannonDecode(payload);
     for (int i = 0; i < 891; i++) {
-        printf("0x%X,", ptr2[i]);
+        printf("0x%X,", shellcode[i]);
     }
 
     return 0;
